@@ -58,3 +58,21 @@ class PrivateDriverTest(TestCase):
         result = self.client.get(url)
         self.assertContains(result, user1.username)
         self.assertNotContains(result, user2.username)
+
+
+class PrivateManufacturerTest(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="testuser",
+            password="password123"
+        )
+        self.client.force_login(self.user)
+
+    def test_search_manufacturer_by_name(self):
+        manufacturer1 = Manufacturer.objects.create(name="Tesla", country="USA")
+        manufacturer2 = Manufacturer.objects.create(name="Toyota", country="Japan")
+
+        url = reverse("taxi:manufacturer-list") + "?name=Tes"
+        result = self.client.get(url)
+        self.assertContains(result, manufacturer1.name)
+        self.assertNotContains(result, manufacturer2.name)
