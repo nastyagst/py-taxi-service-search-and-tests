@@ -19,10 +19,13 @@ class PrivateCarTest(TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertTemplateUsed(result, "taxi/car_list.html")\
 
+
     def test_search_car_by_model(self):
-        manufacturer = Manufacturer.objects.create(name="BMW", country="Germany")
+        manufacturer = Manufacturer.objects.create(
+            name="BMW",
+            country="Germany"
+        )
         car1 = Car.objects.create(model="Camry", manufacturer=manufacturer)
-        car2 = Car.objects.create(model="Cayenne", manufacturer=manufacturer)
         car3 = Car.objects.create(model="Mustang", manufacturer=manufacturer)
 
         url = reverse("taxi:car-list") + "?model=Ca"
