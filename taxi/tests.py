@@ -69,8 +69,14 @@ class PrivateManufacturerTest(TestCase):
         self.client.force_login(self.user)
 
     def test_search_manufacturer_by_name(self):
-        manufacturer1 = Manufacturer.objects.create(name="Tesla", country="USA")
-        manufacturer2 = Manufacturer.objects.create(name="Toyota", country="Japan")
+        manufacturer1 = Manufacturer.objects.create(
+            name="Tesla",
+            country="USA"
+        )
+        manufacturer2 = Manufacturer.objects.create(
+            name="Toyota",
+            country="Japan"
+        )
 
         url = reverse("taxi:manufacturer-list") + "?name=Tes"
         result = self.client.get(url)
